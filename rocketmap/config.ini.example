@@ -1,0 +1,158 @@
+# DO NOT USE NOTEPAD TO EDIT CONFIG FILES! USE NOTEPAD++ INSTEAD!
+# Uncomment a line when you want to change its default value (Remove # at the beginning)
+# Please ensure to leave a space after the colon if a value is needed ("example-setting" "example-setting-with: value")
+# At least one account with "username", "password" as well as "location" and "gmaps-key" are required
+# When your configuration is done, rename this file by removing the ".example" extension
+# A different config-files can be included directly in processes by "--config-file" or "-cf" and path
+
+
+# Required settings
+###################
+
+gmaps-key:           GETaR3AlKey           # Your Google Maps API key
+hash-key:            GETaR3AlKey           # Key for hash server (default=None)
+
+
+# Common settings
+#################
+
+#port:                          # Port to listen on (default=5000)
+#step-limit:                    # Steps (default=10)
+#scan-delay:                    # Time delay between requests in scan threads. (default=12)
+#no-gyms                        # Disables gym scanning (default=False)
+#no-pokemon                     # Disables pokemon scanning. (default=False)
+#no-pokestops                   # Disables pokestop scanning. (default=False)
+#no-raids                       # Disables raid scanning (default=False)
+#print-status                   # Enable ENTER to switch between log view and a status view.
+                                # Optionally add ": status" to start in status view and ": logs" to start in log view. (default=False)
+#status-page-password:          # Enables and protects the /status page to view status of all workers. (default=None)
+captcha-solving:     True           # Enables captcha solving. (default=False)
+
+
+# Database settings
+###################
+
+db-type: mysql                # sqlite (default) or mysql
+db-host: ChangeThis                      # Required for mysql ()
+db-name: ChangeThis                      # Required for mysql
+db-user: ChangeThis                      # Required for mysql
+#db-pass:                       # Required for mysql
+#db-port:                       # Required for mysql (default=3306)
+#db-max_connections:            # Max connections (per thread) for the database. (default=5)
+#db-threads:                    # Number of db threads; increase if the db queue falls behind. (default=1)
+
+
+# Geofence settings
+###################
+
+#geofence-file:                 # Geofence file to define outer borders of the scan area.
+#geofence-excluded-file:        # File to define forbidden areas inside scan area. Regarded this as inverted geofence. Can be combined with geofence-file.
+
+
+# Search settings
+#################
+
+workers: 30                      # Number of search worker threads to start. (default=#accounts)
+#spawn-delay:                   # Number of seconds after spawn time to wait before scanning to be sure the Pokemon is there. (default=10)
+kph: 30                          # Set a maximum speed in km/hour for scanner movement. (default=35)
+#bad-scan-retry:                # Number of bad scans before giving up on a step. (default=2, 0 to disable)
+#skip-empty                     # Enables skipping of empty cells in normal scans - requires previously populated database. (not to be used with -ss)
+#min-seconds-left:              # Time that must be left on a spawn before considering it too late and skipping it. (default=0)
+gym-info                       # Enables detailed gym info collection. (default=False)
+pokestop-spinning              # Spin Pokestops with "50%" Chance (default=False)
+#account-max-spins              # Maximum number of Pokestop spins per hour (default=80)
+#on-demand_timeout:             # Pause searching while web UI is inactive for this timeout (in seconds). (default=0)
+
+
+# Account rotation
+##################
+
+#login-delay:                   # Time delay between each login attempt. (default=6)
+#login-retries:                 # Number of times to retry the login before refreshing a thread. (default=3)
+#account-search-interval:       # Seconds for accounts to search before switching to a new account. (default=0)
+#account-rest-interval:        # Seconds for accounts to rest when they fail or are switched out. (default=7200)
+#max-failures:                  # Maximum number of failures to parse locations before an account will go into a sleep for
+                                # account-rest-interval seconds. (default 5, 0 to disable)
+#max-empty:                     # Maximum number of empty scans before an account will go into a sleep for
+                                # account-rest-interval seconds. Reasonable to use with proxies. (default=0)
+
+
+# Pokemon IV (Only use one of the filters below)
+############
+
+#encounter                      # Set to true to start encounters to pull more info, like IVs or movesets. (default=False)
+#encounter-delay:               # Delay in seconds before starting an encounter. Must not be zero. (default=1)
+#high-lvl-accounts:             # File containing a list high level accounts, in the format "auth_service,username,password"
+#enc-whitelist-file:            # File containing a list of Pokemon IDs to encounter for IV/CPs. Requires L30 or higher accounts in --high-lvl-accounts.
+#hlvl-kph:                      # Set a maximum speed in km/hour for high level account scanning. (default=25)
+
+
+# Webserver settings
+####################
+
+#locale:                        # Pokemon translation
+#search-control                 # Enables search control.
+#no-fixed-location              # Disables the fixed map location and shows the search bar for use in shared maps.
+#cors                           # Enable CORS on web server.
+#ssl-certificate:               # Path to ssl certificate
+#ssl-privatekey:                # Path to ssl private key
+#encrypt-lib:                   # Path to encrypt lib to be used instead of the shipped ones.
+#display-in-console             # Display Found Pokemon in Console.
+#disable-blacklist              # Disable the global anti-scraper IP blacklist.
+
+
+# Proxy settings
+################
+
+#proxy-skip-check               # Disable checking of proxies before start.
+#proxy-test-timeout:            # Timeout before proceeding with next proxy while checking if the proxy works. (default=5)
+#proxy-test-retries:            # Number of times to retry sending proxy test requests on failure. (default=0)
+#proxy-test-backoff-factor:     # Factor (in seconds) by which the delay until next retry will increase. (default=0.25)
+#proxy-test-concurrency:        # Async requests pool size. (default=0 for automatic optimal sizing)
+#proxy-display:                 # Used with -ps, full = display complete proxy address. Index = displays just the index for that proxy. (default='index')
+proxy-refresh: 3600                # Period of proxy file reloading, in seconds. Works only with proxy-file. (default=0, 0 to disable)
+proxy-rotation: random               # Enable proxy rotation with account changing for search threads (none/round/random). (default='none')
+
+
+# Webhook settings
+##################
+
+webhook: http://127.0.0.1:4000                      # Webhook URL e.g. http://127.0.0.1:12345 or a list for multiple webhooks
+                                # [http://127.0.0.1:1345,http://127.0.0.1:12346] (default=None)
+wh-types:[pokemon,gym,raid,egg,tth,gym-info]                    # List of events to be sent: pokemon, gym, raid, egg, tth, gym-info, pokestop, lure. (default= nothing)
+#wh-threads:                    # Number of webhook threads; increase if the webhook queue falls behind. (default=1)
+#wh-retries:                    # Number of times to retry sending webhook data on failure (default=5)
+#wh-timeout:                    # Timeout (in seconds) for webhook requests (default=2).
+#wh-concurrency:                # Async requests pool size. (default=25)
+#wh-backoff-factor:             # Factor (in seconds) by which the delay until next retry will increase. (default=0.25).
+#wh-lfu-size:                   # Webhook LFU cache max size (default=1000).
+#wh-frame-interval:             # Time to wait for wh message grouping (msecs) (default=500)
+
+
+
+# Status and logs
+#################
+
+stats-log-timer: 1500                # In log view, list per hr stats every X seconds
+
+
+# Captcha Solving
+#################
+
+captcha-key: ChangeThis                  # 2Captcha API key.
+#captcha-dsk:                   # PokemonGo captcha data-sitekey. Don't change this if not explicitly needed due to recent changes.
+                                # (default="6LeeTScTAAAAADqvhqVMhPpr_vB9D364Ia-1dSgK")
+#manual-captcha-domain:         # Enables the option to manual solve Captcha.
+                                # Enter domain where captcha tokens will be sent. (default="http://127.0.0.1:5000")
+#manual-captcha-refresh:        # Time available before captcha page refreshes. (default=30)
+#manual-captcha-timeout:        # Maximum time captchas will wait for manual captcha solving.
+                                # On timeout, if enabled, 2Captcha will be used to solve captcha. (default=0)
+
+
+# Misc
+######
+
+#verbosity						          # Show debug messages from RocketMap and PGoApi. Values are 1,2,3 (default=0)
+no-file-logs					          # Disables logging to files except for access.log. (default=False)
+#no-version-check               # Disable API version check. (default=False)
+#version-check-interval:        # Interval to check API version in seconds (Default: in range [60, 300]).
