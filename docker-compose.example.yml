@@ -1,0 +1,61 @@
+version: "3"
+services:
+  scanner1:
+    image: proegssilb/rocketmap
+    build: ./rocketmap
+    env_file: ./env
+    env:
+      RM_LOC: "99.99, 99.99"
+      RM_NAME: Scanner1
+      RM_MODE: -ns
+      RM_ACCOUNTS: /mnt/accounts1.csv
+    volumes:
+      - "/path/to/rmconf:/mnt"
+    networks:
+      - scanner
+  scanner2:
+    image: proegssilb/rocketmap
+    build: ./rocketmap
+    env_file: ./env
+    env:
+      RM_LOC: "98.99, 99.99"
+      RM_NAME: Scanner2
+      RM_MODE: -ns
+      RM_ACCOUNTS: /mnt/accounts2.csv
+    volumes:
+      - "/path/to/rmconf:/mnt"
+    networks:
+      - scanner
+  frontend:
+    image: proegssilb/rocketmap
+    build: ./rocketmap
+    env_file: ./env
+    environment:
+      RM_MODE: -os
+      RM_LOC: "99.99, 99.99"
+      RM_NAME: frontend
+    volumes:
+      - "/path/to/rmconf:/mnt"
+    ports:
+      - 5000:5000
+    networks:
+      - frontend
+  pokealarm:
+    image: proegssilb/pokealarm
+    build: ./pokealarm
+    networks:
+      - scanner
+    volumes:
+      - "/path/to/paconfig:/mnt"
+  rmdb:
+    image: mariadb
+    env_file: ./env
+    volumes:
+      - "/path/to/dbdata:/var/lib/mysql"
+    networks:
+      - scanner
+      - frontend
+
+networks:
+  scanner:
+  frontend:
