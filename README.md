@@ -1,4 +1,6 @@
 # pogo-scanner-docker
+[![Build Status](https://travis-ci.org/proegssilb/pogo-scanner-docker.svg?branch=master)](https://travis-ci.org/proegssilb/pogo-scanner-docker)
+
 Some docker images to make setting up RocketMap slightly easier.
 
 **NOTE:** Software should be used for educational purposes only, and is not
