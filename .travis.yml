@@ -9,6 +9,7 @@ script:
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    curl https://gist.githubusercontent.com/lxhunter/9d4310462b6972a3f57b5f914543fd51/raw/semver.sh | bash
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push proegssilb/rocketmap;
     docker push proegssilb/pokealarm;
