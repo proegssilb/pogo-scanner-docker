@@ -18,10 +18,10 @@ COPY config.ini.example /mnt/config.ini
 RUN apk add --no-cache ca-certificates openssl
 
 RUN wget https://raw.githubusercontent.com/RocketMap/RocketMap/develop/requirements.txt
-RUN apk add --no-cache build-base git \
+RUN apk add --no-cache build-base git libffi libffi-dev openssl-dev python-dev linux-headers \
  && pip install dumb-init \
  && pip install --no-cache-dir -r requirements.txt \
- && apk del build-base git
+ && apk del --no-cache -v build-base git libffi-dev openssl-dev python-dev linux-headers
 
 RUN wget https://raw.githubusercontent.com/RocketMap/RocketMap/develop/package.json \
  && wget https://raw.githubusercontent.com/RocketMap/RocketMap/develop/Gruntfile.js
