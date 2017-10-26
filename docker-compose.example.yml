@@ -2,7 +2,6 @@ version: "3"
 services:
   scanner1:
     image: proegssilb/rocketmap
-    build: ./rocketmap
     env_file: ./env
     environment:
       RM_LOC: "99.99, 99.99"
@@ -18,7 +17,6 @@ services:
       - pokealarm
   scanner2:
     image: proegssilb/rocketmap
-    build: ./rocketmap
     env_file: ./env
     environment:
       RM_LOC: "98.99, 99.99"
@@ -34,7 +32,6 @@ services:
       - pokealarm
   frontend:
     image: proegssilb/rocketmap
-    build: ./rocketmap
     env_file: ./env
     environment:
       RM_MODE: -os
@@ -48,7 +45,6 @@ services:
       - frontend
   pokealarm:
     image: proegssilb/pokealarm
-    build: ./pokealarm
     command: ["-m1", "-f", "/mnt/filters.json", "-a", "/mnt/alarms.json"]
     networks:
       - scanner
