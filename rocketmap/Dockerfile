@@ -3,7 +3,7 @@ EXPOSE 5000
 WORKDIR /usr/src/app
 ENTRYPOINT ["dumb-init", "-r", "15:2"]
 # Before attempting to replace this command, please read up on https://github.com/Yelp/dumb-init .
-CMD ["sh", "-c", "exec python ./runserver.py --host 0.0.0.0 -cf /mnt/config.ini -l \"${RM_LOC}\" -sn \"${RM_NAME}\" ${RM_MODE}"]
+CMD ["sh", "-c", "exec ./wait-for rmdb:3306 -- python ./runserver.py --host 0.0.0.0 -cf /mnt/config.ini -l \"${RM_LOC}\" -sn \"${RM_NAME}\" -ac \"${RM_ACCOUNTS}\" ${RM_MODE}"]
 # At run-time, override these environment variables.
 # RM_MODE should be either "-ns" or "-os"; you need one -os for a graphical map,
 #     and several -ns for the areas that need scanning.
@@ -17,9 +17,10 @@ COPY config.ini.example /mnt/config.ini
 
 RUN apk add --no-cache ca-certificates openssl
 
+RUN wget https://raw.githubusercontent.com/Eficode/wait-for/master/wait-for && chmod +x wait-for
 RUN wget https://raw.githubusercontent.com/RocketMap/RocketMap/develop/requirements.txt
 RUN apk add --no-cache build-base git libffi libffi-dev openssl-dev python-dev linux-headers \
- && pip install dumb-init \
+ && pip install --no-cache-dir dumb-init \
  && pip install --no-cache-dir -r requirements.txt \
  && apk del --no-cache -v build-base git libffi-dev openssl-dev python-dev linux-headers
 
