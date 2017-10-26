@@ -24,19 +24,14 @@ RUN apk add --no-cache build-base git libffi libffi-dev openssl-dev python-dev l
  && pip install --no-cache-dir -r requirements.txt \
  && apk del --no-cache -v build-base git libffi-dev openssl-dev python-dev linux-headers
 
-RUN wget https://raw.githubusercontent.com/RocketMap/RocketMap/develop/package.json \
- && wget https://raw.githubusercontent.com/RocketMap/RocketMap/develop/Gruntfile.js
-RUN apk add --no-cache subversion \
- && svn checkout https://github.com/RocketMap/RocketMap/trunk/static/ \
- && apk del subversion
-RUN apk add --no-cache nodejs \
- && npm install \
- && npm run build \
- && rm -r node_modules \
- && apk del nodejs
-
 RUN wget https://github.com/RocketMap/RocketMap/archive/develop.zip \
  && unzip develop.zip \
  && mv -fn RocketMap-develop/* . \
  && rm -r RocketMap-develop \
  && rm develop.zip
+
+RUN apk add --no-cache nodejs \
+ && npm install \
+ && npm run build \
+ && rm -r node_modules \
+ && apk del nodejs

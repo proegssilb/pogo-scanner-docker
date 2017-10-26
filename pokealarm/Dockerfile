@@ -21,14 +21,14 @@ ENTRYPOINT ["python", "./start_pokealarm.py", "--host", "0.0.0.0"]
 RUN apk add --no-cache ca-certificates openssl
 RUN apk add --no-cache bash git openssh
 
-RUN wget https://raw.githubusercontent.com/RocketMap/PokeAlarm/master/requirements.txt
+RUN wget https://raw.githubusercontent.com/PokeAlarm/PokeAlarm/master/requirements.txt
 
 RUN apk add --no-cache build-base \
  && pip install --no-cache-dir -r requirements.txt \
  && apk del build-base
 
 # Copy everything to the working directory (Python files, templates, config) in one go.
-RUN wget https://github.com/RocketMap/PokeAlarm/archive/master.zip \
+RUN wget https://github.com/PokeAlarm/PokeAlarm/archive/master.zip \
  && unzip master.zip \
  && mv PokeAlarm-master/* . \
  && rm -r PokeAlarm-master \
