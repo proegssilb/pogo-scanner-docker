@@ -117,7 +117,7 @@ mount that directory into Docker (in the compose file, whichever `service` has
 `image: mariadb`, `volumes` key).
 
 In the docker-compose file, take a look at whichever key under `services` has
-`image: mariadb`. Adjust the keys `env_file`, `volumes`, and `networks` as
+`image: mariadb`. If you haven't already, adjust the keys `env_file` and `volumes`, as
 appropriate. Leave the keys `networks` and `image` unchanged (unless you know
 what you're doing...).
 
